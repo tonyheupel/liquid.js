@@ -3,7 +3,7 @@
 Liquid.js is a browser version of the Liquid Templating language (see http://github.com/shopify/liquid).  
 Liquid.js is available as both [plain JavaScript](https://raw.github.com/tchype/liquid.js/master/liquid.js) and as [minified JavaScript](https://raw.github.com/tchype/liquid.js/master/liquid.min.js).
 
-In addition to core Liquid, Partials from my [node-liquid-partial](https://github.com/tchype/node-liquid-partial) have been added as a way to reduce duplication in markup.
+In addition to core Liquid, Partials from my [node-liquid-partial project](https://github.com/tchype/node-liquid-partial) have been added as a way to reduce duplication in markup.
 You register templates and reference them via the **{% partial %}** tag.
 
 This library is built in the [node-liquify project](http://github.com/tchype/node-liquify).

@@ -4191,19 +4191,18 @@ require.define("/node_modules/liquid-partial/index.js", function (require, modul
 
 require.define("/node_modules/liquid-partial/lib/partial.js", function (require, module, exports, __dirname, __filename) {
     (function() {
-  var Partial, Liquid, Templates,
+  var Liquid,
     __hasProp = Object.prototype.hasOwnProperty,
     __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor; child.__super__ = parent.prototype; return child; };
 
-  Liquid = require("liquid-node")
+  Liquid = require('liquid-node');
 
-  module.exports = Partial = (function(_super) {
+  Liquid.Partial = (function(_super) {
     var Syntax, SyntaxHelp;
 
     __extends(Partial, _super);
 
     Partial.name = 'Partial';
-
 
     Syntax = RegExp("(" + Liquid.QuotedFragment.source + ")");
 
@@ -4221,26 +4220,30 @@ require.define("/node_modules/liquid-partial/lib/partial.js", function (require,
     }
 
     Partial.prototype.render = function(context) {
-      if (!Partial.Templates[this.id]) throw new Error("No template found with id '" + this.id + "'")
-      var output = Partial.Templates[this.id].render(context);
-      return output;
-    };
-
-    Partial.clearTemplates = function() { Partial.Templates = {} };
-
-    Partial.registerTemplate = function(id, template) {
-      if (!id) throw new Error('id must be defined')
-      if (typeof template === 'string') template = Liquid.Template.parse(template)
-
-      if (!Partial.Templates) Partial.Templates = {}
-      Partial.Templates[id] = template
+      if (!Liquid.Partial.Templates[this.id]) {
+        throw new Error("No template found with id '" + this.id + "'");
+      }
+      return Liquid.Partial.Templates[this.id].render(context);
     };
 
     return Partial;
 
   })(Liquid.Tag);
 
-  Liquid.Template.registerTag('partial', Partial);
+  Liquid.Partial.clearTemplates = function() {
+    return Liquid.Partial.Templates = {};
+  };
+
+  Liquid.Partial.registerTemplate = function(id, template) {
+    if (!id) throw new Error('id must be defined');
+    if (typeof template === 'string') template = Liquid.Template.parse(template);
+    if (!Liquid.Partial.Templates) Liquid.Partial.Templates = {};
+    return Liquid.Partial.Templates[id] = template;
+  };
+
+  Liquid.Template.registerTag('partial', Liquid.Partial);
+
+  module.exports = Liquid.Partial;
 
 }).call(this);
 
